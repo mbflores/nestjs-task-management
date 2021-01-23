@@ -60,11 +60,12 @@ export class TasksService {
     return this.taskRepo.createTask(createTaskDto);
   }
   //
-  // deleteTask(id: string) {
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter((task) => task.id === found.id);
-  //   return this.tasks;
-  // }
+  async deleteTask(id: number): Promise<void> {
+    const result = await this.taskRepo.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ${id} not found`);
+    }
+  }
   // updateTaskStatus(id: string, taskStatus: TASKSTATUS) {
   //   const task = this.getTaskById(id);
   //   task.status = taskStatus;
