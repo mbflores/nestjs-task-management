@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { TaskEntity } from './task.entity';
+import { Task } from './task';
 import { TASKSTATUS } from './task-status.enum';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { GetTasksFilterDto } from './dto/get-task-filter.dto';
@@ -31,7 +31,7 @@ export class TasksController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  createTask(@Body() createTaskDto: CreateTaskDto): Promise<TaskEntity> {
+  createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.taskService.createTask(createTaskDto);
   }
   @Delete('/:id')
@@ -42,7 +42,7 @@ export class TasksController {
   updateTaskStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body('status', TaskStatusValidationPipe) status: TASKSTATUS,
-  ): Promise<TaskEntity> {
+  ): Promise<Task> {
     return this.taskService.updateTaskStatus(id, status);
   }
 }
