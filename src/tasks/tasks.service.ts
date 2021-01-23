@@ -5,8 +5,8 @@ import { TaskEntity } from './task.entity';
 @Injectable()
 export class TasksService {
   constructor(
-    // @InjectRepository()
-    // private taskRepo: TaskRepository,
+    @InjectRepository(TaskRepository)
+    private taskRepo: TaskRepository,
   ) {}
   // private tasks: ITask[] = [];
   // getAllTasks(): ITask[] {
@@ -19,13 +19,13 @@ export class TasksService {
   //   }
   //   return found;
   // }
-  // async getTaskById(id: number): Promise<TaskEntity> {
-  //   const found = await this.taskRepo.findOne(id);
-  //   if (!found) {
-  //     throw new NotFoundException();
-  //   }
-  //   return found;
-  // }
+  async getTaskById(id: number): Promise<TaskEntity> {
+    const found = await this.taskRepo.findOne(id);
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
+  }
 
   // getTaskWithFilters(filterDto: GetTasksFilterDto): ITask[] {
   //   const { status, search } = filterDto;

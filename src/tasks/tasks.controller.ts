@@ -1,6 +1,5 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { TaskEntity } from './task.entity';
 
 @Controller('tasks')
 export class TasksController {
@@ -14,9 +13,7 @@ export class TasksController {
   // }
   @Get('/:id')
   getTaskById(@Param('id', ParseIntPipe) id: number) {
-    // console.log('dsads');
-    // return this.taskService.getTaskById(id);
-    return {};
+    return this.taskService.getTaskById(id);
   }
 
   // @Post()
